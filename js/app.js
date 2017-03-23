@@ -7,6 +7,7 @@ const userDesignSelect = document.querySelector('#design');
 const selectColorsContainer = document.querySelector('.select-colors');
 
 
+
 /*************** Creating the DOM Elements ***************/
 // The Job Rule Input when the "other" value is selected
 const jobRoleInput = document.createElement('input');
@@ -27,16 +28,40 @@ const showOtherJobRole = (jobRoleValue) => {
     }
 };
 
+// Take the T-Shirt Design Value and append the new node is either "js puns" or "heart js"
+const showColorContainer = (shirtDesign) => {
+    if (shirtDesign.toLowerCase() === "js puns") {
+        shirtFieldset.appendChild(selectColorsContainer);
+        console.log('design 1');
+    } else if (shirtDesign.toLowerCase() === "heart js") {
+        shirtFieldset.appendChild(selectColorsContainer);
+        console.log('design 2');
+    } else {
+        // if the value is "select theme", hide the color container
+        console.log("no design");
+        shirtFieldset.removeChild(selectColorsContainer);
+    }
+};
+
 
 
 /*************** Adding the event handlers ***************/
-// When the page loads, focus the first element (here the input Name)
+// When the page loads, 
+    // focus the first element (here the input Name)
+    // hide the color container
 window.onload = () => {
     userNameInput.focus();
+    shirtFieldset.removeChild(selectColorsContainer);
 };
 
 // When the "Other" Job Role is choosen, show input
 userTitleSelect.addEventListener('change', () => {
     let userTitleValue = userTitleSelect.value;
     showOtherJobRole(userTitleValue);
+});
+
+// When the design select changes, hide or show the matched elements
+userDesignSelect.addEventListener('change', () => {
+    let userDesignValue = userDesignSelect.value;
+    showColorContainer(userDesignValue);
 });
