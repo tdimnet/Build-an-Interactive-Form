@@ -2,7 +2,9 @@
 const firstFieldset = document.querySelector('fieldset');
 const userNameInput = document.querySelector('input');
 const userTitleSelect = document.querySelector('#title');
-
+const shirtFieldset = document.querySelector('.shirt');
+const userDesignSelect = document.querySelector('#design');
+const selectColorsContainer = document.querySelector('.select-colors');
 
 
 /*************** Creating the DOM Elements ***************/
