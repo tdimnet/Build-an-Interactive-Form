@@ -2,9 +2,18 @@
 const firstFieldset = document.querySelector('fieldset');
 const userNameInput = document.querySelector('input');
 const userTitleSelect = document.querySelector('#title');
+
 const shirtFieldset = document.querySelector('.shirt');
 const userDesignSelect = document.querySelector('#design');
 const selectColorsContainer = document.querySelector('.select-colors');
+const userColorSelect = document.querySelector("#color");
+const userColorValues = userColorSelect.querySelectorAll('option');
+
+const paymentFiedlset = document.querySelector('.paymentContainer');
+const paymentSelect = document.querySelector('#payment');
+const creditCardPayment = document.querySelector('#credit-card');
+const paypalPayment = document.querySelector(".paypal");
+const bitcoinPayment = document.querySelector(".bitcoin");
 
 
 
@@ -14,6 +23,14 @@ const jobRoleInput = document.createElement('input');
 jobRoleInput.id = 'other-title';
 jobRoleInput.setAttribute('type', 'text');
 jobRoleInput.setAttribute('placeholder', 'Your Job Role');
+
+
+
+/*************** Removing DOM Elements ***************/
+// The three payment options are hidden by default
+creditCardPayment.style.display = "none";
+paypalPayment.style.display = "none";
+bitcoinPayment.style.display = "none";
 
 
 
@@ -38,11 +55,31 @@ const showColorContainer = (shirtDesign) => {
         console.log('design 2');
     } else {
         // if the value is "select theme", hide the color container
-        console.log("no design");
         shirtFieldset.removeChild(selectColorsContainer);
+        console.log("no design");
     }
 };
 
+// Take the payment option and show the child needed
+const showPaymentOption = (paymentOptionValue) => {
+    if (paymentOptionValue === 'credit card') {
+        creditCardPayment.style.display = "block";
+        paypalPayment.style.display = "none";
+        bitcoinPayment.style.display = "none";
+    } else if (paymentOptionValue === 'paypal') {
+        creditCardPayment.style.display = "none";
+        paypalPayment.style.display = "block";
+        bitcoinPayment.style.display = "none";
+    } else if (paymentOptionValue === 'bitcoin') {
+        creditCardPayment.style.display = "none";
+        paypalPayment.style.display = "none";
+        bitcoinPayment.style.display = "block";
+    } else {
+        creditCardPayment.style.display = "none";
+        paypalPayment.style.display = "none";
+        bitcoinPayment.style.display = "none";
+    }
+};
 
 
 /*************** Adding the event handlers ***************/
@@ -64,4 +101,10 @@ userTitleSelect.addEventListener('change', () => {
 userDesignSelect.addEventListener('change', () => {
     let userDesignValue = userDesignSelect.value;
     showColorContainer(userDesignValue);
+});
+
+// When a payment is selected
+paymentSelect.addEventListener('change', () => {
+    let paymentOption = paymentSelect.value;
+    showPaymentOption(paymentOption);
 });
