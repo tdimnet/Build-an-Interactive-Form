@@ -9,6 +9,8 @@ const selectColorsContainer = document.querySelector('.select-colors');
 const userColorSelect = document.querySelector("#color");
 const userColorValues = userColorSelect.querySelectorAll('option');
 
+const activitiesFieldset = document.querySelector('.activities');
+
 const paymentFiedlset = document.querySelector('.paymentContainer');
 const paymentSelect = document.querySelector('#payment');
 const creditCardPayment = document.querySelector('#credit-card');
@@ -23,6 +25,9 @@ const jobRoleInput = document.createElement('input');
 jobRoleInput.id = 'other-title';
 jobRoleInput.setAttribute('type', 'text');
 jobRoleInput.setAttribute('placeholder', 'Your Job Role');
+
+const totalPrice = document.createElement('p');
+totalPrice.id = 'total-price';
 
 
 
