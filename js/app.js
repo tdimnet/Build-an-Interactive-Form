@@ -33,9 +33,9 @@ totalPrice.id = 'total-price';
 
 /*************** Removing DOM Elements ***************/
 // The three payment options are hidden by default
-creditCardPayment.style.display = "none";
-paypalPayment.style.display = "none";
-bitcoinPayment.style.display = "none";
+creditCardPayment.style.display     = "none";
+paypalPayment.style.display         = "none";
+bitcoinPayment.style.display        = "none";
 
 
 
