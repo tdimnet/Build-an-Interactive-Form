@@ -26,7 +26,7 @@ jobRoleInput.id = 'other-title';
 jobRoleInput.setAttribute('type', 'text');
 jobRoleInput.setAttribute('placeholder', 'Your Job Role');
 
-const totalPrice = document.createElement('p');
+const totalPrice = document.createElement('h4');
 totalPrice.id = 'total-price';
 
 
@@ -53,15 +53,47 @@ const showOtherJobRole = (jobRoleValue) => {
 // Take the T-Shirt Design Value and append the new node is either "js puns" or "heart js"
 const showColorContainer = (shirtDesign) => {
     if (shirtDesign.toLowerCase() === "js puns") {
+        // Append the colors' container
         shirtFieldset.appendChild(selectColorsContainer);
-        console.log('design 1');
+        // Then loop trough the specific color array
+        for (let i = 0; i < userColorValues.length; i++) {
+            // The selected color is always shown
+            if (userColorValues[i].className == 'base') {
+                userColorValues[i].style.display = 'initial';
+            }
+            // Here the select style t-shirt is puns
+            else if (userColorValues[i].className == 'puns') {
+                userColorValues[i].style.display = 'initial';
+            } else {
+            // and the heart js are not shown
+                userColorValues[i].style.display = 'none';
+            }
+        }
+        // By default, the first option is always selected
+        userColorValues[0].selected = true;
+        
     } else if (shirtDesign.toLowerCase() === "heart js") {
+        // Append the colors' container
         shirtFieldset.appendChild(selectColorsContainer);
-        console.log('design 2');
+        // Then loop trough the specific color array
+        for (let i = 0; i < userColorValues.length; i++) {
+            // The selected color is always shown
+            if (userColorValues[i].className == 'base') {
+                userColorValues[i].style.display = 'initial';
+            }
+            // Here the select style t-shirt is heart js
+            else if (userColorValues[i].className == 'puns') {
+                userColorValues[i].style.display = 'none';
+            } else {
+            // and the puns are not shown
+                userColorValues[i].style.display = 'initial';
+            }
+        }
+        // By default, the first option is always selected
+        userColorValues[0].selected = true;
+    // if the value is "select theme", hide the color container
     } else {
-        // if the value is "select theme", hide the color container
         shirtFieldset.removeChild(selectColorsContainer);
-        console.log("no design");
     }
 };
 
