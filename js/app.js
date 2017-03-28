@@ -97,6 +97,13 @@ const showColorContainer = (shirtDesign) => {
     }
 };
 
+// Take the event and able or disable for the activities
+const registeringForactivities = (inputChecked) => {
+    console.log(inputChecked);
+    inputChecked.parentNode.style.color = 'blue';
+};
+
+
 // Take the payment option and show the child needed
 const showPaymentOption = (paymentOptionValue) => {
     if (paymentOptionValue === 'credit card') {
@@ -138,6 +145,12 @@ userTitleSelect.addEventListener('change', () => {
 userDesignSelect.addEventListener('change', () => {
     let userDesignValue = userDesignSelect.value;
     showColorContainer(userDesignValue);
+});
+
+// When the user clicks activities for registration
+activitiesFieldset.addEventListener('change', (event) => {
+    let target = event.target
+    registeringForactivities(target);
 });
 
 // When a payment is selected
