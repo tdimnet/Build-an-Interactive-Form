@@ -28,6 +28,7 @@ jobRoleInput.setAttribute('placeholder', 'Your Job Role');
 
 const totalPrice = document.createElement('h4');
 totalPrice.id = 'total-price';
+totalPrice.textContent = "The total price of your order is: ";
 
 
 
@@ -97,10 +98,16 @@ const showColorContainer = (shirtDesign) => {
     }
 };
 
-// Take the event and able or disable for the activities
+// Take the event and able or disable for the activities and display total price
 const registeringForactivities = (inputChecked) => {
-    console.log(inputChecked);
-    inputChecked.parentNode.style.color = 'blue';
+    if (inputChecked.checked) {
+        inputChecked.parentNode.style.color = 'blue';
+        totalPrice.textContent += inputChecked.className;
+        totalPrice.textContent += "$";
+        activitiesFieldset.appendChild(totalPrice);
+    } else {
+        inputChecked.parentNode.style.color = 'black';
+    }
 };
 
 
