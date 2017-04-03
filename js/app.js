@@ -178,5 +178,16 @@ form.addEventListener('submit', (event) => {
     let paymentOption = paymentSelect.value;
     if (paymentOption === 'credit card') {
         // Run these validations
+        let cardNumber = document.querySelector('#cc-num').value;
+        let value = parseInt(cardNumber);
+        if (isNaN(value)) {
+            console.log('this field should be a number');
+        } else {
+            if ((cardNumber.length >= 13) && (cardNumber.length <= 16)) {
+                console.log('The number of your card is the right needed');
+            } else {
+                console.log('Nope, your card is too short or too long!');
+            }
+        }
     }
 });
