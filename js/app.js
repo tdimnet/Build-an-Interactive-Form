@@ -1,4 +1,6 @@
 /*************** Targeting the elements already present inside the page ***************/
+const form = document.querySelector("form");
+
 const firstFieldset = document.querySelector('fieldset');
 const userNameInput = document.querySelector('input');
 const userTitleSelect = document.querySelector('#title');
@@ -102,9 +104,6 @@ const showColorContainer = (shirtDesign) => {
 const registeringForactivities = (inputChecked) => {
     if (inputChecked.checked) {
         inputChecked.parentNode.style.color = 'blue';
-        totalPrice.textContent += inputChecked.className;
-        totalPrice.textContent += "$";
-        activitiesFieldset.appendChild(totalPrice);
     } else {
         inputChecked.parentNode.style.color = 'black';
     }
@@ -164,4 +163,20 @@ activitiesFieldset.addEventListener('change', (event) => {
 paymentSelect.addEventListener('change', () => {
     let paymentOption = paymentSelect.value;
     showPaymentOption(paymentOption);
+});
+
+// When the form is submited
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    // If the user name is not filled in
+    if (userNameInput.value.length === 0) {
+        console.log('this field cannot be blanked!');
+    }
+    // Do a regex for the e-mail field
+
+    // If the credit card has been selected
+    let paymentOption = paymentSelect.value;
+    if (paymentOption === 'credit card') {
+        // Run these validations
+    }
 });
