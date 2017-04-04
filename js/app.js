@@ -12,6 +12,7 @@ const userColorSelect = document.querySelector("#color");
 const userColorValues = userColorSelect.querySelectorAll('option');
 
 const activitiesFieldset = document.querySelector('.activities');
+const activitiesCheckboxes =activitiesFieldset.querySelectorAll("input[type=checkbox]");
 
 const paymentFiedlset = document.querySelector('.paymentContainer');
 const paymentSelect = document.querySelector('#payment');
@@ -172,14 +173,32 @@ form.addEventListener('submit', (event) => {
     if (userNameInput.value.length === 0) {
         console.log('this field cannot be blanked!');
     }
+
+
     // Do a regex for the e-mail field
+
+
+    // Then inspect the checkbox elements, if there is no checkbox checked, return an error
+    function checkboxValidation() {
+        for (let i = 0; i < activitiesCheckboxes.length; i++) {
+            if (activitiesCheckboxes[i].checked) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    console.log(checkboxValidation());
+    
+
 
     // If the credit card has been selected
     let paymentOption = paymentSelect.value;
     if (paymentOption === 'credit card') {
-        // Run these validations
+        // Create the sub-variables needed 
         let cardNumber = document.querySelector('#cc-num').value;
         let value = parseInt(cardNumber);
+        // And run these validations
         if (isNaN(value)) {
             console.log('this field should be a number');
         } else {
