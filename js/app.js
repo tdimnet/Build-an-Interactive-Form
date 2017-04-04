@@ -172,6 +172,8 @@ form.addEventListener('submit', (event) => {
     // If the user name is not filled in
     if (userNameInput.value.length === 0) {
         console.log('this field cannot be blanked!');
+    } else {
+        console.log('Correct!');
     }
 
 
@@ -196,16 +198,25 @@ form.addEventListener('submit', (event) => {
     let paymentOption = paymentSelect.value;
     if (paymentOption === 'credit card') {
         // Create the sub-variables needed 
-        let cardNumber = document.querySelector('#cc-num').value;
-        let value = parseInt(cardNumber);
-        // And run these validations
-        if (isNaN(value)) {
-            console.log('this field should be a number');
+        let cardNumberValue = document.querySelector('#cc-num').value;
+        // And Run these validations
+        if (isNaN(parseInt(cardNumberValue))) {
+            console.log('The credit card should be a number');
         } else {
-            if ((cardNumber.length >= 13) && (cardNumber.length <= 16)) {
-                console.log('The number of your card is the right needed');
+            if ((cardNumberValue.length >= 13) && (cardNumberValue.length <= 16)) {
+                console.log('Correct!');
             } else {
                 console.log('Nope, your card is too short or too long!');
+            }
+        }
+        let zipNumberValue = document.querySelector('#zip').value;
+        if (isNaN(parseInt(zipNumberValue))) {
+            console.log('The zip code should be a number');
+        } else {
+            if (zipNumberValue.length != 5) {
+                console.log('Your zipcode should be a 5-digit number');
+            } else {
+                console.log('Correct!');
             }
         }
     }
