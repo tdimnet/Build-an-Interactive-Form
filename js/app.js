@@ -181,8 +181,10 @@ form.addEventListener('submit', (event) => {
     // If the user name is not filled in
     if (userNameInput.value.length === 0) {
         console.log('Username: cannot be blanked!');
+        userNameInput.style.borderColor = "red";
     } else {
         console.log('Username: correct!');
+        userNameInput.style.borderColor = "#c1deeb";
     }
 
 
@@ -193,9 +195,15 @@ form.addEventListener('submit', (event) => {
     // If the email address input has not been field in
     if (emailAddress.value.length === 0) {
         console.log("Email: cannot be blanked!");
+        emailAddress.style.borderColor = "red";
     } else {
         // And do a regex
         let value = regexEmail.test(emailAddress.value);
+        if (value) {
+            emailAddress.style.borderColor = "#c1deeb";
+        } else {
+            emailAddress.style.borderColor = "red";
+        }
         console.log('Email status: ' + value);
     }
 
