@@ -4,6 +4,7 @@ const form = document.querySelector("form");
 const firstFieldset = document.querySelector('fieldset');
 const userNameInput = document.querySelector('input');
 const userTitleSelect = document.querySelector('#title');
+const jobRoleInput = document.querySelector('#other-title');
 
 const shirtFieldset = document.querySelector('.shirt');
 const userDesignSelect = document.querySelector('#design');
@@ -23,12 +24,6 @@ const bitcoinPayment = document.querySelector(".bitcoin");
 
 
 /*************** Creating the DOM Elements ***************/
-// The Job Rule Input when the "other" value is selected
-const jobRoleInput = document.createElement('input');
-jobRoleInput.id = 'other-title';
-jobRoleInput.setAttribute('type', 'text');
-jobRoleInput.setAttribute('placeholder', 'Your Job Role');
-
 const totalPrice = document.createElement('h4');
 totalPrice.id = 'total-price';
 totalPrice.textContent = "The total price of your order is: ";
@@ -36,6 +31,8 @@ totalPrice.textContent = "The total price of your order is: ";
 
 
 /*************** Removing DOM Elements ***************/
+// The job input element is hidden by default
+jobRoleInput.style.display          = "none";
 // The three payment options are hidden by default
 creditCardPayment.style.display     = "none";
 paypalPayment.style.display         = "none";
@@ -47,10 +44,10 @@ bitcoinPayment.style.display        = "none";
 // Take the Job Role Value and create a new node if needed
 const showOtherJobRole = (jobRoleValue) => {
     if (jobRoleValue.toLowerCase() === "other") {
-        firstFieldset.appendChild(jobRoleInput);
+        jobRoleInput.style.display = "";
     // If the other value has already been selected and the value is not other anymore, remove this input
-    } else if (firstFieldset.lastChild == jobRoleInput) {
-        firstFieldset.removeChild(jobRoleInput);
+    } else {
+        jobRoleInput.style.display = "none";
     }
 };
 
