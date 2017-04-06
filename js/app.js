@@ -178,6 +178,16 @@ form.addEventListener('submit', (event) => {
 
 
     // Do a regex for the e-mail field
+    let emailAddress = document.getElementById('mail');
+    let regexEmail = new RegExp('^[0-9a-z._-]+@{1}[0-9a-z.-]{2,}[.]{1}[a-z]{2,5}$','i');
+
+    // If the email address input has not been field in
+    if (emailAddress.value.length === 0) {
+        console.log("You should fill in the e-mail input");
+    } else {
+        let value = regexEmail.test(emailAddress.value);
+        console.log('This value is : ' + value);
+    }
 
 
     // Then inspect the checkbox elements, if there is no checkbox checked, return an error
