@@ -101,13 +101,25 @@ const showColorContainer = (shirtDesign) => {
     }
 };
 
+
+// Use the variable below for the total sum
+let totalSum = 0;
 // Take the event and able or disable for the activities and display total price
 const registeringForactivities = (inputChecked) => {
     if (inputChecked.checked) {
+        // When an input element is checked, take the price of the activity then add it to the total amount
         inputChecked.parentNode.style.color = 'blue';
+        activityPrice = parseInt(inputChecked.className);
+        totalSum = totalSum + activityPrice;
+        console.log(totalSum);
     } else {
+        // When an input element is unchecked, take the price of the activity then remove it to the total amount
         inputChecked.parentNode.style.color = 'black';
+        activityPrice = parseInt(inputChecked.className);
+        totalSum = totalSum - activityPrice;
+        console.log(totalSum);
     }
+    
 };
 
 
