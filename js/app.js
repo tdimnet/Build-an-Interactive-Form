@@ -171,9 +171,9 @@ form.addEventListener('submit', (event) => {
     event.preventDefault();
     // If the user name is not filled in
     if (userNameInput.value.length === 0) {
-        console.log('this field cannot be blanked!');
+        console.log('Username: cannot be blanked!');
     } else {
-        console.log('Correct!');
+        console.log('Username: correct!');
     }
 
 
@@ -183,20 +183,24 @@ form.addEventListener('submit', (event) => {
 
     // If the email address input has not been field in
     if (emailAddress.value.length === 0) {
-        console.log("You should fill in the e-mail input");
+        console.log("Email: cannot be blanked!");
     } else {
+        // And do a regex
         let value = regexEmail.test(emailAddress.value);
-        console.log('This value is : ' + value);
+        console.log('Email status: ' + value);
     }
 
 
     // Then inspect the checkbox elements, if there is no checkbox checked, return an error
     function checkboxValidation() {
+        let checkboxErrorMessage = "The checkbox validation is: ";
         for (let i = 0; i < activitiesCheckboxes.length; i++) {
             if (activitiesCheckboxes[i].checked) {
-                return true;
+                checkboxErrorMessage += true;
+                return checkboxErrorMessage;
             } else {
-                return false;
+                checkboxErrorMessage += false;
+                return checkboxErrorMessage;
             }
         }
     }
@@ -207,26 +211,40 @@ form.addEventListener('submit', (event) => {
     // If the credit card has been selected
     let paymentOption = paymentSelect.value;
     if (paymentOption === 'credit card') {
-        // Create the sub-variables needed 
+        // Target the credit card field
         let cardNumberValue = document.querySelector('#cc-num').value;
         // And Run these validations
         if (isNaN(parseInt(cardNumberValue))) {
             console.log('The credit card should be a number');
         } else {
             if ((cardNumberValue.length >= 13) && (cardNumberValue.length <= 16)) {
-                console.log('Correct!');
+                console.log('Cardnumber: correct!');
             } else {
                 console.log('Nope, your card is too short or too long!');
             }
         }
+        // Target the zip code filed
         let zipNumberValue = document.querySelector('#zip').value;
+        // And run these validations
         if (isNaN(parseInt(zipNumberValue))) {
             console.log('The zip code should be a number');
         } else {
             if (zipNumberValue.length != 5) {
                 console.log('Your zipcode should be a 5-digit number');
             } else {
-                console.log('Correct!');
+                console.log('Zipcode: correct!');
+            }
+        }
+        // Target the CVV code field
+        let cvvNumberValue = document.getElementById('cvv').value;
+        // And run these validations
+        if (isNaN(parseInt(cvvNumberValue))) {
+            console.log('The CVV code should be a number');
+        } else {
+            if (cvvNumberValue.length != 3) {
+                console.log('Your CVV should be a 3-digit number');
+            } else {
+                console.log('CVV: correct!')
             }
         }
     }
