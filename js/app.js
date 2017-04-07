@@ -105,18 +105,31 @@ const showColorContainer = (shirtDesign) => {
 
 // Take the event and able or disable for the activities and display total price
 const registeringForactivities = (inputChecked) => {
+    let jsFrameworks = document.querySelector('input[name=js-frameworks]');
+    let express = document.querySelector('input[name=express]');
     if (inputChecked.checked) {
         // When an input element is checked, take the price of the activity then add it to the total amount
         inputChecked.parentNode.style.color = 'blue';
         activityPrice = parseInt(inputChecked.className);
         totalSum = totalSum + activityPrice;
         totalPrice.textContent = "The total price of your order is: " + totalSum + "$";
+
+        // Add other security verications
+        if (jsFrameworks.checked) {
+            express.setAttribute('disabled', true);
+        }
+
     } else {
         // When an input element is unchecked, take the price of the activity then remove it to the total amount
         inputChecked.parentNode.style.color = 'black';
         activityPrice = parseInt(inputChecked.className);
         totalSum = totalSum - activityPrice;
         totalPrice.textContent = "The total price of your order is: " + totalSum + "$";
+
+        // Add other security verications
+        if (!jsFrameworks.checked) {
+            express.removeAttribute('disabled');
+        }
     }
     
 };
