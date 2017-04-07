@@ -22,11 +22,15 @@ const paypalPayment = document.querySelector(".paypal");
 const bitcoinPayment = document.querySelector(".bitcoin");
 
 
+/*************** Creating Global Variables ***************/
+// Use the variable below for the total sum
+let totalSum = 0;
 
 /*************** Creating the DOM Elements ***************/
 const totalPrice = document.createElement('h4');
 totalPrice.id = 'total-price';
-totalPrice.textContent = "The total price of your order is: ";
+totalPrice.textContent = "The total price of your order is: " + totalSum + "$";
+activitiesFieldset.appendChild(totalPrice);
 
 
 
@@ -99,8 +103,6 @@ const showColorContainer = (shirtDesign) => {
 };
 
 
-// Use the variable below for the total sum
-let totalSum = 0;
 // Take the event and able or disable for the activities and display total price
 const registeringForactivities = (inputChecked) => {
     if (inputChecked.checked) {
@@ -108,13 +110,13 @@ const registeringForactivities = (inputChecked) => {
         inputChecked.parentNode.style.color = 'blue';
         activityPrice = parseInt(inputChecked.className);
         totalSum = totalSum + activityPrice;
-        console.log(totalSum);
+        totalPrice.textContent = "The total price of your order is: " + totalSum + "$";
     } else {
         // When an input element is unchecked, take the price of the activity then remove it to the total amount
         inputChecked.parentNode.style.color = 'black';
         activityPrice = parseInt(inputChecked.className);
         totalSum = totalSum - activityPrice;
-        console.log(totalSum);
+        totalPrice.textContent = "The total price of your order is: " + totalSum + "$";
     }
     
 };
