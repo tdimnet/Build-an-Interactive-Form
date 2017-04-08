@@ -124,9 +124,15 @@ const registeringForactivities = (inputChecked) => {
         if (jsFrameworks.checked) {
             express.setAttribute('disabled', true);
         }
+        if (express.checked) {
+            jsFrameworks.setAttribute('disabled', true);
+        }
             // Second one
         if (jsLibs.checked) {
             node.setAttribute('disabled', true);
+        }
+        if (node.checked) {
+            jsLibs.setAttribute('disabled', true);
         }
 
     } else {
@@ -141,9 +147,15 @@ const registeringForactivities = (inputChecked) => {
         if (!jsFrameworks.checked) {
             express.removeAttribute('disabled');
         }
+        if (!express.checked) {
+            jsFrameworks.removeAttribute('disabled');
+        }
             // Second one
         if (!jsLibs.checked) {
             node.removeAttribute('disabled');
+        }
+        if (!node.checked) {
+            jsLibs.removeAttribute('disabled');
         }
     }
     
