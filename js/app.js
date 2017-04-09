@@ -114,7 +114,6 @@ const registeringForactivities = (inputChecked) => {
 
     if (inputChecked.checked) {
         // When an input element is checked, take the price of the activity then add it to the total amount
-        inputChecked.parentNode.style.color = 'blue';
         activityPrice = parseInt(inputChecked.className);
         totalSum = totalSum + activityPrice;
         totalPrice.textContent = "The total price of your order is: " + totalSum + "$";
@@ -137,7 +136,6 @@ const registeringForactivities = (inputChecked) => {
 
     } else {
         // When an input element is unchecked, take the price of the activity then remove it to the total amount
-        inputChecked.parentNode.style.color = 'black';
         activityPrice = parseInt(inputChecked.className);
         totalSum = totalSum - activityPrice;
         totalPrice.textContent = "The total price of your order is: " + totalSum + "$";
@@ -249,6 +247,15 @@ form.addEventListener('submit', (event) => {
         console.log('Email status: ' + value);
     }
 
+    // If the "other" field inside job role is selected
+    if ((userTitleSelect.value === "other") && (jobRoleInput.value.length === 0)) {
+        console.log("If the other job role is selected, it has to be filled in!");
+        jobRoleInput.style.borderColor = "red";
+    } else {
+        console.log("Other job role: correct!");
+        jobRoleInput.style.borderColor = "#c1deeb";
+    }
+
 
     // Then inspect the checkbox elements, if there is no checkbox checked, return an error
     function checkboxValidation() {
@@ -275,11 +282,14 @@ form.addEventListener('submit', (event) => {
         // And Run these validations
         if (isNaN(parseInt(cardNumberValue))) {
             console.log('The credit card should be a number');
+            document.querySelector("#cc-num").style.borderColor = "red";
         } else {
             if ((cardNumberValue.length >= 13) && (cardNumberValue.length <= 16)) {
                 console.log('Cardnumber: correct!');
+                document.querySelector("#cc-num").style.borderColor = "#c1deeb";
             } else {
                 console.log('Nope, your card is too short or too long!');
+                document.querySelector("#cc-num").style.borderColor = "red";
             }
         }
         // Target the zip code filed
@@ -287,23 +297,29 @@ form.addEventListener('submit', (event) => {
         // And run these validations
         if (isNaN(parseInt(zipNumberValue))) {
             console.log('The zip code should be a number');
+            document.querySelector("#zip").style.borderColor = "red";
         } else {
             if (zipNumberValue.length != 5) {
                 console.log('Your zipcode should be a 5-digit number');
+                document.querySelector("#zip").style.borderColor = "red";
             } else {
                 console.log('Zipcode: correct!');
+                document.querySelector("#zip").style.borderColor = "#c1deeb";
             }
         }
         // Target the CVV code field
-        let cvvNumberValue = document.getElementById('cvv').value;
+        let cvvNumberValue = document.querySelector("#cvv").value;
         // And run these validations
         if (isNaN(parseInt(cvvNumberValue))) {
             console.log('The CVV code should be a number');
+            document.querySelector("#cvv").style.borderColor = "red";
         } else {
             if (cvvNumberValue.length != 3) {
                 console.log('Your CVV should be a 3-digit number');
+                document.querySelector("#cvv").style.borderColor = "red";
             } else {
-                console.log('CVV: correct!')
+                console.log('CVV: correct!');
+                document.querySelector("#cvv").style.borderColor = "#c1deeb";
             }
         }
     }
