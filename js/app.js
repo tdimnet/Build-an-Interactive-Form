@@ -45,11 +45,11 @@ bitcoinPayment.style.display        = "none";
 
 
 /*************** Creating the functions wished ***************/
-// Take the Job Role Value and create a new node if needed
+// Take the Job Role Value and display the node if needed
 const showOtherJobRole = (jobRoleValue) => {
     if (jobRoleValue.toLowerCase() === "other") {
         jobRoleInput.style.display = "";
-    // If the other value has already been selected and the value is not other anymore, remove this input
+    // If the other value has already been selected and the value is not other anymore, hide this input
     } else {
         jobRoleInput.style.display = "none";
     }
@@ -220,11 +220,15 @@ form.addEventListener('submit', (event) => {
     event.preventDefault();
     // If the user name is not filled in
     if (userNameInput.value.length === 0) {
-        console.log('Username: cannot be blanked!');
+        userNameInput.previousElementSibling.textContent = "Name: (cannot be blanked)";
+        userNameInput.previousElementSibling.style.color = "#3D0B1A";
+        userNameInput.previousElementSibling.style.textDecoration = "underline";
         userNameInput.style.borderColor = "red";
     } else {
-        console.log('Username: correct!');
         userNameInput.style.borderColor = "#c1deeb";
+        userNameInput.previousElementSibling.textContent = "Name: ";
+        userNameInput.previousElementSibling.style.color = "#000";
+        userNameInput.previousElementSibling.style.textDecoration = "none";
     }
 
 
@@ -234,18 +238,25 @@ form.addEventListener('submit', (event) => {
 
     // If the email address input has not been field in
     if (emailAddress.value.length === 0) {
-        console.log("Email: cannot be blanked!");
+        emailAddress.previousElementSibling.textContent = "Email: (cannot be blanked)";
+        emailAddress.previousElementSibling.style.color = "#3D0B1A";
+        emailAddress.previousElementSibling.style.textDecoration = "underline";
         emailAddress.style.borderColor = "red";
     } else {
         // And do a regex
         let value = regexEmail.test(emailAddress.value);
         if (value) {
             emailAddress.style.borderColor = "#c1deeb";
+            emailAddress.previousElementSibling.textContent = "Email: ";
+            emailAddress.previousElementSibling.style.color = "#000";
+            emailAddress.previousElementSibling.style.textDecoration = "none";
         } else {
             emailAddress.style.borderColor = "red";
+            emailAddress.previousElementSibling.textContent = "Email: (please enter a valid email address)";
+            emailAddress.previousElementSibling.style.color = "#3D0B1A";
+            emailAddress.previousElementSibling.style.textDecoration = "underline";
         }
-        console.log('Email status: ' + value);
-    }
+    } // /else
 
     // If the "other" field inside job role is selected
     if ((userTitleSelect.value === "other") && (jobRoleInput.value.length === 0)) {
@@ -259,18 +270,23 @@ form.addEventListener('submit', (event) => {
 
     // Then inspect the checkbox elements, if there is no checkbox checked, return an error
     function checkboxValidation() {
-        let checkboxErrorMessage = "The checkbox validation is: ";
+        let status;
         for (let i = 0; i < activitiesCheckboxes.length; i++) {
             if (activitiesCheckboxes[i].checked) {
-                checkboxErrorMessage += true;
-                return checkboxErrorMessage;
+                status = true;
+                return status;
             } else {
-                checkboxErrorMessage += false;
-                return checkboxErrorMessage;
+                status = false;
+                return status;
             }
         }
     }
-    console.log(checkboxValidation());
+    if (!checkboxValidation()) {
+        document.querySelector(".activities").firstElementChild.textContent = "Register for Activities (please choose at least one activity)";
+    } else {
+        document.querySelector(".activities").firstElementChild.textContent = "Register for Activities";
+    }
+    // End: checkboxValidation()
     
 
 
