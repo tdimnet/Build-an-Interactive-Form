@@ -162,18 +162,19 @@ const registeringForactivities = (inputChecked) => {
 
 // Take the payment option and show the child needed
 const showPaymentOption = (paymentOptionValue) => {
+    function show(option1, option2, option3) {
+        option1.style.display = "block";
+        option2.style.display = "none";
+        option3.style.display = "none";
+    }
+
+
     if (paymentOptionValue === 'credit card') {
-        creditCardPayment.style.display = "block";
-        paypalPayment.style.display = "none";
-        bitcoinPayment.style.display = "none";
+        show(creditCardPayment, paypalPayment, bitcoinPayment);
     } else if (paymentOptionValue === 'paypal') {
-        creditCardPayment.style.display = "none";
-        paypalPayment.style.display = "block";
-        bitcoinPayment.style.display = "none";
+        show(paypalPayment, creditCardPayment, bitcoinPayment);
     } else if (paymentOptionValue === 'bitcoin') {
-        creditCardPayment.style.display = "none";
-        paypalPayment.style.display = "none";
-        bitcoinPayment.style.display = "block";
+        show(bitcoinPayment, paypalPayment, creditCardPayment);
     } else {
         creditCardPayment.style.display = "none";
         paypalPayment.style.display = "none";
@@ -217,7 +218,9 @@ paymentSelect.addEventListener('change', () => {
 
 // When the form is submited
 form.addEventListener('submit', (event) => {
+    
     event.preventDefault();
+    
     // If the user name is not filled in
     if (userNameInput.value.length === 0) {
         userNameInput.previousElementSibling.textContent = "Name: (cannot be blanked)";
@@ -280,11 +283,6 @@ form.addEventListener('submit', (event) => {
                 return status;
             }
         }
-    }
-    if (!checkboxValidation()) {
-        document.querySelector(".activities").firstElementChild.textContent = "Register for Activities (please choose at least one activity)";
-    } else {
-        document.querySelector(".activities").firstElementChild.textContent = "Register for Activities";
     }
     // End: checkboxValidation()
     
