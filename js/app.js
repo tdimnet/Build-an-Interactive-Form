@@ -57,46 +57,32 @@ const showOtherJobRole = (jobRoleValue) => {
 
 // Take the T-Shirt Design Value and append the new node is either "js puns" or "heart js"
 const showColorContainer = (shirtDesign) => {
+    function colorValues(array, value1, value2) {
+        for (let i = 0; i < array.length; i++) {
+            if (array[i].className == value1) {
+                array[i].style.display = 'initial';
+            } else if (array[i].className == value2) {
+                array[i].style.display = 'initial';
+            } else {
+                array[i].style.display = 'none';
+            }
+        }
+        // By default, the first option is always selected
+        array[0].selected = true;
+    }
     
     if (shirtDesign.toLowerCase() === "js puns") {
         // Append the colors' container
         shirtFieldset.appendChild(selectColorsContainer);
-        // Then loop trough the specific color array
-        for (let i = 0; i < userColorValues.length; i++) {
-            // The selected color is always shown
-            if (userColorValues[i].className == 'base') {
-                userColorValues[i].style.display = 'initial';
-            }
-            // Here the select style t-shirt is puns
-            else if (userColorValues[i].className == 'puns') {
-                userColorValues[i].style.display = 'initial';
-            } else {
-            // and the heart js are not shown
-                userColorValues[i].style.display = 'none';
-            }
-        }
-        // By default, the first option is always selected
-        userColorValues[0].selected = true;
+        colorValues(userColorValues, 'base', 'puns');
         
     } else if (shirtDesign.toLowerCase() === "heart js") {
         // Append the colors' container
+        
         shirtFieldset.appendChild(selectColorsContainer);
         // Then loop trough the specific color array
-        for (let i = 0; i < userColorValues.length; i++) {
-            // The selected color is always shown
-            if (userColorValues[i].className == 'base') {
-                userColorValues[i].style.display = 'initial';
-            }
-            // Here the select style t-shirt is heart js
-            else if (userColorValues[i].className == 'puns') {
-                userColorValues[i].style.display = 'none';
-            } else {
-            // and the puns are not shown
-                userColorValues[i].style.display = 'initial';
-            }
-        }
-        // By default, the first option is always selected
-        userColorValues[0].selected = true;
+        colorValues(userColorValues, 'base', 'heart');
+        
     // if the value is "select theme", hide the color container
     } else {
         shirtFieldset.removeChild(selectColorsContainer);
@@ -142,8 +128,6 @@ const registeringForactivities = (inputChecked) => {
         totalSum = totalSum - activityPrice;
         totalPrice.textContent = "The total price of your order is: " + totalSum + "$";
 
-        // Add other security verications
-            // First one
         disabledChecked(jsFrameworks, express);
         disabledChecked(express, jsFrameworks);
         disabledChecked(jsLibs, node);
