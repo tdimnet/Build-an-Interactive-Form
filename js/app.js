@@ -86,7 +86,7 @@ const showColorContainer = (shirtDesign) => {
 
 
 // Take the event and able or disable for the activities and display total price
-const registeringForactivities = (inputChecked) => {
+const registeringForActivities = (inputChecked) => {
     function checkedActivity(activity1, activity2) {
         if (activity1.checked) {
             activity2.setAttribute('disabled', true);
@@ -110,50 +110,48 @@ const registeringForactivities = (inputChecked) => {
         activityPrice = parseInt(inputChecked.className);
         totalSum = totalSum + activityPrice;
         totalPrice.textContent = "The total price of your order is: " + totalSum + "$";
-
-        // Add other security verications
         checkedActivity(jsFrameworks, express);
         checkedActivity(express, jsFrameworks);
         checkedActivity(jsLibs, node);
         checkedActivity(node, jsLibs);
-
-
     } else {
         // When an input element is unchecked, take the price of the activity then remove it to the total amount
         activityPrice = parseInt(inputChecked.className);
         totalSum = totalSum - activityPrice;
         totalPrice.textContent = "The total price of your order is: " + totalSum + "$";
-
         uncheckedActivity(jsFrameworks, express);
         uncheckedActivity(express, jsFrameworks);
         uncheckedActivity(jsLibs, node);
         uncheckedActivity(node, jsLibs);
     }
-    
-};
+}; // /f(registeringForactivities)
 
 
 // Take the payment option and show the child needed
 const showPaymentOption = (paymentOptionValue) => {
-    function show(option1, option2, option3) {
-        option1.style.display = "block";
-        option2.style.display = "none";
-        option3.style.display = "none";
-    }
+    function showBlock(option1, option2, option3, boolean) {
+        if (boolean) {
+            option1.style.display = "block";
+            option2.style.display = "none";
+            option3.style.display = "none";
+        } else {
+            option1.style.display = "none";
+            option2.style.display = "none";
+            option3.style.display = "none";
+        }
+    } // /f(showBlock)
 
 
     if (paymentOptionValue === 'credit card') {
-        show(creditCardPayment, paypalPayment, bitcoinPayment);
+        showBlock(creditCardPayment, paypalPayment, bitcoinPayment, true);
     } else if (paymentOptionValue === 'paypal') {
-        show(paypalPayment, creditCardPayment, bitcoinPayment);
+        showBlock(paypalPayment, creditCardPayment, bitcoinPayment, true);
     } else if (paymentOptionValue === 'bitcoin') {
-        show(bitcoinPayment, paypalPayment, creditCardPayment);
+        showBlock(bitcoinPayment, paypalPayment, creditCardPayment, true);
     } else {
-        creditCardPayment.style.display = "none";
-        paypalPayment.style.display = "none";
-        bitcoinPayment.style.display = "none";
+        showBlock(bitcoinPayment, paypalPayment, creditCardPayment, false);
     }
-};
+}; // /f(showPaymentOption)
 
 
 /*************** Adding the event handlers ***************/
@@ -180,7 +178,7 @@ userDesignSelect.addEventListener('change', () => {
 // When the user clicks activities for registration
 activitiesFieldset.addEventListener('change', (event) => {
     let target = event.target
-    registeringForactivities(target);
+    registeringForActivities(target);
 });
 
 // When a payment is selected
