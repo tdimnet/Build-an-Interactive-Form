@@ -106,6 +106,16 @@ const showColorContainer = (shirtDesign) => {
 
 // Take the event and able or disable for the activities and display total price
 const registeringForactivities = (inputChecked) => {
+    function checked(activity1, activity2) {
+        if (activity1.checked) {
+            activity2.setAttribute('disabled', true);
+        }
+    }
+    function disabledChecked(activity1, activity2) {
+        if (!activity1.checked) {
+            activity2.removeAttribute('disabled');
+        }
+    }
     // The first couple of checkbox inputs
     let jsFrameworks = document.querySelector('input[name=js-frameworks]');
     let express = document.querySelector('input[name=express]');
@@ -114,13 +124,6 @@ const registeringForactivities = (inputChecked) => {
     let node = document.querySelector('input[name=node]');
 
     if (inputChecked.checked) {
-        function checked(activity1, activity2) {
-            if (activity1.checked) {
-                activity2.setAttribute('disabled', true);
-            }
-        }
-
-
         // When an input element is checked, take the price of the activity then add it to the total amount
         activityPrice = parseInt(inputChecked.className);
         totalSum = totalSum + activityPrice;
@@ -141,19 +144,10 @@ const registeringForactivities = (inputChecked) => {
 
         // Add other security verications
             // First one
-        if (!jsFrameworks.checked) {
-            express.removeAttribute('disabled');
-        }
-        if (!express.checked) {
-            jsFrameworks.removeAttribute('disabled');
-        }
-            // Second one
-        if (!jsLibs.checked) {
-            node.removeAttribute('disabled');
-        }
-        if (!node.checked) {
-            jsLibs.removeAttribute('disabled');
-        }
+        disabledChecked(jsFrameworks, express);
+        disabledChecked(express, jsFrameworks);
+        disabledChecked(jsLibs, node);
+        disabledChecked(node, jsLibs);
     }
     
 };
