@@ -192,19 +192,20 @@ form.addEventListener('submit', (event) => {
     
     event.preventDefault();
     
+    function verifyInput(targetedInput, text, color, underlining, borderColor) {
+        targetedInput.previousElementSibling.textContent = text;
+        targetedInput.previousElementSibling.style.color = color;
+        targetedInput.previousElementSibling.style.textDecoration = underlining;
+        targetedInput.style.borderColor = borderColor;
+    } // /f(verifyInput)
+
+
     // If the user name is not filled in
     if (userNameInput.value.length === 0) {
-        userNameInput.previousElementSibling.textContent = "Name: (cannot be blanked)";
-        userNameInput.previousElementSibling.style.color = "#3D0B1A";
-        userNameInput.previousElementSibling.style.textDecoration = "underline";
-        userNameInput.style.borderColor = "red";
+        verifyInput(userNameInput, "Name: (cannot be blanked)", "#3D0B1A", "underline", "red");
     } else {
-        userNameInput.style.borderColor = "#c1deeb";
-        userNameInput.previousElementSibling.textContent = "Name: ";
-        userNameInput.previousElementSibling.style.color = "#000";
-        userNameInput.previousElementSibling.style.textDecoration = "none";
+        verifyInput(userNameInput, "Name: ", "#000", "none", "#c1deeb");
     }
-
 
     // Do a regex for the e-mail field
     let emailAddress = document.getElementById('mail');
@@ -212,23 +213,14 @@ form.addEventListener('submit', (event) => {
 
     // If the email address input has not been field in
     if (emailAddress.value.length === 0) {
-        emailAddress.previousElementSibling.textContent = "Email: (cannot be blanked)";
-        emailAddress.previousElementSibling.style.color = "#3D0B1A";
-        emailAddress.previousElementSibling.style.textDecoration = "underline";
-        emailAddress.style.borderColor = "red";
+        verifyInput(emailAddress, "Email: (cannot be blanked)", "#3D0B1A", "underline", "red");
     } else {
         // And do a regex
         let value = regexEmail.test(emailAddress.value);
         if (value) {
-            emailAddress.style.borderColor = "#c1deeb";
-            emailAddress.previousElementSibling.textContent = "Email: ";
-            emailAddress.previousElementSibling.style.color = "#000";
-            emailAddress.previousElementSibling.style.textDecoration = "none";
+            verifyInput(emailAddress, "Email: ", "#000", "none", "#c1deeb");
         } else {
-            emailAddress.style.borderColor = "red";
-            emailAddress.previousElementSibling.textContent = "Email: (please enter a valid email address)";
-            emailAddress.previousElementSibling.style.color = "#3D0B1A";
-            emailAddress.previousElementSibling.style.textDecoration = "underline";
+            verifyInput(emailAddress, "Email: (please enter a valid email address)", "#3D0B1A", "underline", "red");
         }
     } // /else
 
