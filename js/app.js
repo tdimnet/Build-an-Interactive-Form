@@ -72,18 +72,13 @@ const showColorContainer = (shirtDesign) => {
     }
     
     if (shirtDesign.toLowerCase() === "js puns") {
-        // Append the colors' container
         shirtFieldset.appendChild(selectColorsContainer);
         colorValues(userColorValues, 'base', 'puns');
         
     } else if (shirtDesign.toLowerCase() === "heart js") {
-        // Append the colors' container
-        
         shirtFieldset.appendChild(selectColorsContainer);
-        // Then loop trough the specific color array
         colorValues(userColorValues, 'base', 'heart');
-        
-    // if the value is "select theme", hide the color container
+    
     } else {
         shirtFieldset.removeChild(selectColorsContainer);
     }
