@@ -69,7 +69,7 @@ const showColorContainer = (shirtDesign) => {
         }
         // By default, the first option is always selected
         array[0].selected = true;
-    }
+    } // /f(colorValues)
     
     if (shirtDesign.toLowerCase() === "js puns") {
         shirtFieldset.appendChild(selectColorsContainer);
@@ -87,16 +87,17 @@ const showColorContainer = (shirtDesign) => {
 
 // Take the event and able or disable for the activities and display total price
 const registeringForactivities = (inputChecked) => {
-    function checked(activity1, activity2) {
+    function checkedActivity(activity1, activity2) {
         if (activity1.checked) {
             activity2.setAttribute('disabled', true);
         }
-    }
-    function disabledChecked(activity1, activity2) {
+    } // /f(checkedActivity)
+    function uncheckedActivity(activity1, activity2) {
         if (!activity1.checked) {
             activity2.removeAttribute('disabled');
         }
-    }
+    } // /f(uncheckedActivity)
+
     // The first couple of checkbox inputs
     let jsFrameworks = document.querySelector('input[name=js-frameworks]');
     let express = document.querySelector('input[name=express]');
@@ -111,10 +112,10 @@ const registeringForactivities = (inputChecked) => {
         totalPrice.textContent = "The total price of your order is: " + totalSum + "$";
 
         // Add other security verications
-        checked(jsFrameworks, express);
-        checked(express, jsFrameworks);
-        checked(jsLibs, node);
-        checked(node, jsLibs);
+        checkedActivity(jsFrameworks, express);
+        checkedActivity(express, jsFrameworks);
+        checkedActivity(jsLibs, node);
+        checkedActivity(node, jsLibs);
 
 
     } else {
@@ -123,10 +124,10 @@ const registeringForactivities = (inputChecked) => {
         totalSum = totalSum - activityPrice;
         totalPrice.textContent = "The total price of your order is: " + totalSum + "$";
 
-        disabledChecked(jsFrameworks, express);
-        disabledChecked(express, jsFrameworks);
-        disabledChecked(jsLibs, node);
-        disabledChecked(node, jsLibs);
+        uncheckedActivity(jsFrameworks, express);
+        uncheckedActivity(express, jsFrameworks);
+        uncheckedActivity(jsLibs, node);
+        uncheckedActivity(node, jsLibs);
     }
     
 };
