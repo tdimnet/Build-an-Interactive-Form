@@ -279,5 +279,6 @@ form.addEventListener('submit', (event) => {
 
         verifyCreditCard(zipNumber, 5, 'Zip Code');
         verifyCreditCard(cvvNumber, 3, 'CVV');
+
     }
 });
