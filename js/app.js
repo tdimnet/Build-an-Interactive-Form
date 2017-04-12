@@ -226,10 +226,8 @@ form.addEventListener('submit', (event) => {
 
     // If the "other" field inside job role is selected
     if ((userTitleSelect.value === "other") && (jobRoleInput.value.length === 0)) {
-        console.log("If the other job role is selected, it has to be filled in!");
         jobRoleInput.style.borderColor = "red";
     } else {
-        console.log("Other job role: correct!");
         jobRoleInput.style.borderColor = "#c1deeb";
     }
 
@@ -255,49 +253,31 @@ form.addEventListener('submit', (event) => {
     let paymentOption = paymentSelect.value;
     if (paymentOption === 'credit card') {
         // Target the credit card field
-        let cardNumberValue = document.querySelector('#cc-num').value;
+        let cardNumber = document.querySelector('#cc-num');
         // And Run these validations
-        if (isNaN(parseInt(cardNumberValue))) {
-            console.log('The credit card should be a number');
-            document.querySelector("#cc-num").style.borderColor = "red";
+        if (isNaN(parseInt(cardNumber.value))) {
+            verifyInput(cardNumber, "Card Number: (Should be a number)", "#3D0B1A", "underline", "red");
         } else {
-            if ((cardNumberValue.length >= 13) && (cardNumberValue.length <= 16)) {
-                console.log('Cardnumber: correct!');
-                document.querySelector("#cc-num").style.borderColor = "#c1deeb";
+            if ((cardNumber.value.length >= 13) && (cardNumber.value.length <= 16)) {
+                verifyInput(cardNumber, "Card Number: ", "#000", "none", "#c1deeb");
             } else {
-                console.log('Nope, your card is too short or too long!');
-                document.querySelector("#cc-num").style.borderColor = "red";
+                verifyInput(cardNumber, "Card Number: (not valid number)", "#3D0B1A", "underline", "red");
             }
         }
-        // Target the zip code filed
-        let zipNumberValue = document.querySelector('#zip').value;
-        // And run these validations
-        if (isNaN(parseInt(zipNumberValue))) {
-            console.log('The zip code should be a number');
-            document.querySelector("#zip").style.borderColor = "red";
-        } else {
-            if (zipNumberValue.length != 5) {
-                console.log('Your zipcode should be a 5-digit number');
-                document.querySelector("#zip").style.borderColor = "red";
+        
+
+        let zipNumber = document.querySelector('#zip');
+        let cvvNumber = document.querySelector("#cvv");
+        
+        function verifyCreditCard(inputTargerted, requiredLength, inputText) {
+            if (isNaN(parseInt(inputTargerted.value)) || (inputTargerted.value.length != requiredLength)) {
+                verifyInput(inputTargerted, inputText + ": (error)", "#3D0B1A", "underline", "red");
             } else {
-                console.log('Zipcode: correct!');
-                document.querySelector("#zip").style.borderColor = "#c1deeb";
+                verifyInput(inputTargerted, "Zip Code: ", "#000", "none", "#c1deeb");
             }
         }
-        // Target the CVV code field
-        let cvvNumberValue = document.querySelector("#cvv").value;
-        // And run these validations
-        if (isNaN(parseInt(cvvNumberValue))) {
-            console.log('The CVV code should be a number');
-            document.querySelector("#cvv").style.borderColor = "red";
-        } else {
-            if (cvvNumberValue.length != 3) {
-                console.log('Your CVV should be a 3-digit number');
-                document.querySelector("#cvv").style.borderColor = "red";
-            } else {
-                console.log('CVV: correct!');
-                document.querySelector("#cvv").style.borderColor = "#c1deeb";
-            }
-        }
+
+        verifyCreditCard(zipNumber, 5, 'Zip Code');
+        verifyCreditCard(cvvNumber, 3, 'CVV');
     }
 });
