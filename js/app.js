@@ -57,6 +57,7 @@ const showOtherJobRole = (jobRoleValue) => {
 
 // Take the T-Shirt Design Value and append the new node is either "js puns" or "heart js"
 const showColorContainer = (shirtDesign) => {
+    
     if (shirtDesign.toLowerCase() === "js puns") {
         // Append the colors' container
         shirtFieldset.appendChild(selectColorsContainer);
@@ -113,26 +114,24 @@ const registeringForactivities = (inputChecked) => {
     let node = document.querySelector('input[name=node]');
 
     if (inputChecked.checked) {
+        function checked(activity1, activity2) {
+            if (activity1.checked) {
+                activity2.setAttribute('disabled', true);
+            }
+        }
+
+
         // When an input element is checked, take the price of the activity then add it to the total amount
         activityPrice = parseInt(inputChecked.className);
         totalSum = totalSum + activityPrice;
         totalPrice.textContent = "The total price of your order is: " + totalSum + "$";
 
         // Add other security verications
-            // First one
-        if (jsFrameworks.checked) {
-            express.setAttribute('disabled', true);
-        }
-        if (express.checked) {
-            jsFrameworks.setAttribute('disabled', true);
-        }
-            // Second one
-        if (jsLibs.checked) {
-            node.setAttribute('disabled', true);
-        }
-        if (node.checked) {
-            jsLibs.setAttribute('disabled', true);
-        }
+        checked(jsFrameworks, express);
+        checked(express, jsFrameworks);
+        checked(jsLibs, node);
+        checked(node, jsLibs);
+
 
     } else {
         // When an input element is unchecked, take the price of the activity then remove it to the total amount
