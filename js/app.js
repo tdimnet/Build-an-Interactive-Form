@@ -3,6 +3,8 @@ const form = document.querySelector("form");
 
 const firstFieldset = document.querySelector('fieldset');
 const userNameInput = document.querySelector('input');
+const emailAddress = document.getElementById('mail');
+const regexEmail = new RegExp('^[0-9a-z._-]+@{1}[0-9a-z.-]{2,}[.]{1}[a-z]{2,5}$','i');
 const userTitleSelect = document.querySelector('#title');
 const jobRoleInput = document.querySelector('#other-title');
 
@@ -33,7 +35,6 @@ totalPrice.textContent = "The total price of your order is: " + totalSum + "$";
 activitiesFieldset.appendChild(totalPrice);
 
 
-
 /*************** Removing DOM Elements ***************/
 // The job input element is hidden by default
 jobRoleInput.style.display          = "none";
@@ -43,8 +44,52 @@ paypalPayment.style.display         = "none";
 bitcoinPayment.style.display        = "none";
 
 
-
 /*************** Creating the functions wished ***************/
+// The security functions
+const verifyInput = (targetedInput, text, color, underlining, borderColor) => {
+    targetedInput.previousElementSibling.textContent = text;
+    targetedInput.previousElementSibling.style.color = color;
+    targetedInput.previousElementSibling.style.textDecoration = underlining;
+    targetedInput.style.borderColor = borderColor;
+} // /f(verifyInput)
+
+checkUsername = (input) => {
+    if (input.value.length === 0) {
+        verifyInput(input, "Name: (cannot be blanked)", "#3D0B1A", "underline", "red");
+        return false;
+    } else {
+        verifyInput(input, "Name: ", "#000", "none", "#c1deeb");
+        return true;
+    }
+}
+
+checkEmail = (input) => {
+    if (input.value.length === 0) {
+        verifyInput(input, "Email: (cannot be blanked)", "#3D0B1A", "underline", "red");
+        return false;
+    } else {
+        // And do a regex
+        let boolean = regexEmail.test(input.value);
+        if (boolean) {
+            verifyInput(input, "Email: ", "#000", "none", "#c1deeb");
+            return true;
+        } else {
+            verifyInput(input, "Email: (please enter a valid email address)", "#3D0B1A", "underline", "red");
+            return false;
+        }
+    } 
+}
+
+checkOtherJobRole = (parentNode, targetedInput) => {
+    if ((parentNode.value === "other") && (targetedInput.value.length === 0)) {
+        targetedInput.style.borderColor = "red";
+    } else {
+        targetedInput.style.borderColor = "#c1deeb";
+    }    
+}
+
+
+
 // Take the Job Role Value and display the node if needed
 const showOtherJobRole = (jobRoleValue) => {
     if (jobRoleValue.toLowerCase() === "other") {
@@ -190,48 +235,16 @@ paymentSelect.addEventListener('change', () => {
 // When the form is submited
 form.addEventListener('submit', (event) => {
     
+    
     event.preventDefault();
     
-    function verifyInput(targetedInput, text, color, underlining, borderColor) {
-        targetedInput.previousElementSibling.textContent = text;
-        targetedInput.previousElementSibling.style.color = color;
-        targetedInput.previousElementSibling.style.textDecoration = underlining;
-        targetedInput.style.borderColor = borderColor;
-    } // /f(verifyInput)
+    checkUsername(userNameInput);
+    checkEmail(emailAddress);
+    checkOtherJobRole(userTitleSelect, jobRoleInput);
 
-
-    // If the user name is not filled in
-    if (userNameInput.value.length === 0) {
-        verifyInput(userNameInput, "Name: (cannot be blanked)", "#3D0B1A", "underline", "red");
-    } else {
-        verifyInput(userNameInput, "Name: ", "#000", "none", "#c1deeb");
-    }
-
-    // Do a regex for the e-mail field
-    let emailAddress = document.getElementById('mail');
-    let regexEmail = new RegExp('^[0-9a-z._-]+@{1}[0-9a-z.-]{2,}[.]{1}[a-z]{2,5}$','i');
-
-    // If the email address input has not been field in
-    if (emailAddress.value.length === 0) {
-        verifyInput(emailAddress, "Email: (cannot be blanked)", "#3D0B1A", "underline", "red");
-    } else {
-        // And do a regex
-        let value = regexEmail.test(emailAddress.value);
-        if (value) {
-            verifyInput(emailAddress, "Email: ", "#000", "none", "#c1deeb");
-        } else {
-            verifyInput(emailAddress, "Email: (please enter a valid email address)", "#3D0B1A", "underline", "red");
-        }
-    } // /else
-
-    // If the "other" field inside job role is selected
-    if ((userTitleSelect.value === "other") && (jobRoleInput.value.length === 0)) {
-        jobRoleInput.style.borderColor = "red";
-    } else {
-        jobRoleInput.style.borderColor = "#c1deeb";
-    }
-
-
+    // 
+    //  TODO: change this function, not work as expected
+    //
     // Then inspect the checkbox elements, if there is no checkbox checked, return an error
     function checkboxValidation() {
         let status;
