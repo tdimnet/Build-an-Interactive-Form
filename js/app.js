@@ -23,6 +23,10 @@ const creditCardPayment = document.querySelector('#credit-card');
 const paypalPayment = document.querySelector(".paypal");
 const bitcoinPayment = document.querySelector(".bitcoin");
 
+const cardNumber = document.querySelector('#cc-num');
+const zipNumber = document.querySelector('#zip');
+const cvvNumber = document.querySelector("#cvv");
+
 
 /*************** Creating Global Variables ***************/
 // Use the variable below for the total sum
@@ -86,6 +90,31 @@ checkOtherJobRole = (parentNode, targetedInput) => {
     } else {
         targetedInput.style.borderColor = "#c1deeb";
     }    
+}
+
+checkCardNumber = (input) => {
+    if (isNaN(parseInt(input.value))) {
+        verifyInput(input, "Card Number: (Should be a number)", "#3D0B1A", "underline", "red");
+        return false;
+    } else {
+        if ((input.value.length >= 13) && (input.value.length <= 16)) {
+            verifyInput(input, "Card Number: ", "#000", "none", "#c1deeb");
+            return true;
+        } else {
+            verifyInput(input, "Card Number: (not valid number)", "#3D0B1A", "underline", "red");
+            return false;
+        }
+    }
+}
+
+const verifyCreditCard = (inputTargerted, requiredLength, inputText) => {
+    if (isNaN(parseInt(inputTargerted.value)) || (inputTargerted.value.length != requiredLength)) {
+        verifyInput(inputTargerted, inputText + ": (error)", "#3D0B1A", "underline", "red");
+        return false;
+    } else {
+        verifyInput(inputTargerted, "Zip Code: ", "#000", "none", "#c1deeb");
+        return true;
+    }
 }
 
 
@@ -261,35 +290,13 @@ form.addEventListener('submit', (event) => {
     // End: checkboxValidation()
     
 
-
     // If the credit card has been selected
     let paymentOption = paymentSelect.value;
     if (paymentOption === 'credit card') {
         // Target the credit card field
-        let cardNumber = document.querySelector('#cc-num');
-        // And Run these validations
-        if (isNaN(parseInt(cardNumber.value))) {
-            verifyInput(cardNumber, "Card Number: (Should be a number)", "#3D0B1A", "underline", "red");
-        } else {
-            if ((cardNumber.value.length >= 13) && (cardNumber.value.length <= 16)) {
-                verifyInput(cardNumber, "Card Number: ", "#000", "none", "#c1deeb");
-            } else {
-                verifyInput(cardNumber, "Card Number: (not valid number)", "#3D0B1A", "underline", "red");
-            }
-        }
         
 
-        let zipNumber = document.querySelector('#zip');
-        let cvvNumber = document.querySelector("#cvv");
-        
-        function verifyCreditCard(inputTargerted, requiredLength, inputText) {
-            if (isNaN(parseInt(inputTargerted.value)) || (inputTargerted.value.length != requiredLength)) {
-                verifyInput(inputTargerted, inputText + ": (error)", "#3D0B1A", "underline", "red");
-            } else {
-                verifyInput(inputTargerted, "Zip Code: ", "#000", "none", "#c1deeb");
-            }
-        }
-
+        checkCardNumber(cardNumber);
         verifyCreditCard(zipNumber, 5, 'Zip Code');
         verifyCreditCard(cvvNumber, 3, 'CVV');
 
