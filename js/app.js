@@ -1,23 +1,31 @@
 /*************** Targeting the elements already present inside the page ***************/
 const form                      = document.querySelector("form");
+
 const firstFieldset             = document.querySelector('fieldset');
 const userNameInput             = document.querySelector('input');
+
 const emailAddress              = document.getElementById('mail');
 const regexEmail                = new RegExp('^[0-9a-z._-]+@{1}[0-9a-z.-]{2,}[.]{1}[a-z]{2,5}$','i');
+
 const userTitleSelect           = document.querySelector('#title');
 const jobRoleInput              = document.querySelector('#other-title');
+
 const shirtFieldset             = document.querySelector('.shirt');
 const userDesignSelect          = document.querySelector('#design');
 const selectColorsContainer     = document.querySelector('.select-colors');
 const userColorSelect           = document.querySelector("#color");
 const userColorValues           = userColorSelect.querySelectorAll('option');
+
 const activitiesFieldset        = document.querySelector('.activities');
+const registerTitle             = activitiesFieldset.firstElementChild;
 const activitiesCheckboxes      = activitiesFieldset.querySelectorAll("input[type=checkbox]");
+
 const paymentFiedlset           = document.querySelector('.paymentContainer');
 const paymentSelect             = document.querySelector('#payment');
 const creditCardPayment         = document.querySelector('#credit-card');
 const paypalPayment             = document.querySelector(".paypal");
 const bitcoinPayment            = document.querySelector(".bitcoin");
+
 const cardNumber                = document.querySelector('#cc-num');
 const zipNumber                 = document.querySelector('#zip');
 const cvvNumber                 = document.querySelector("#cvv");
@@ -52,7 +60,7 @@ const verifyInput = (targetedInput, text, color, underlining, borderColor) => {
     targetedInput.style.borderColor = borderColor;
 } // /f(verifyInput)
 
-checkUsername = (input) => {
+const checkUsername = (input) => {
     if (input.value.length === 0) {
         verifyInput(input, "Name: (cannot be blanked)", "#3D0B1A", "underline", "red");
         return false;
@@ -62,7 +70,7 @@ checkUsername = (input) => {
     }
 } // /f(checkUsername)
 
-checkEmail = (input) => {
+const checkEmail = (input) => {
     if (input.value.length === 0) {
         verifyInput(input, "Email: (cannot be blanked)", "#3D0B1A", "underline", "red");
         return false;
@@ -151,13 +159,13 @@ const showColorContainer = (shirtDesign) => {
     }
 } // f(showColorContainer)
 
-function checkedActivity(activity1, activity2) {
+const checkedActivity = (activity1, activity2) => {
     if (activity1.checked) {
         activity2.setAttribute('disabled', true);
     }
 } // /f(checkedActivity)
 
-function uncheckedActivity(activity1, activity2) {
+const uncheckedActivity = (activity1, activity2) => {
     if (!activity1.checked) {
         activity2.removeAttribute('disabled');
     }
@@ -192,6 +200,22 @@ const registeringForActivities = (inputChecked) => {
         uncheckedActivity(node, jsLibs);
     }
 }; // /f(registeringForactivities)
+
+const checkboxValidation = (inputTargerted) => {
+    let status;
+    let myArray = [];
+    for (let i = 0; i < inputTargerted.length; i++) {
+        if (!inputTargerted[i].checked) {
+            myArray.push(myArray);
+        }
+    }
+    if (myArray.length === inputTargerted.length) {
+        registerTitle.textContent = "Register for Activities: (please chooese at least one activity)";
+        return false;
+    }
+    registerTitle.textContent = "Register for Activities: ";
+    return true;
+} // /f(checkboxValidation)
 
 const showBlock = (paymentOption1, paymentOption2, paymentOption3, isDisplayed) => {
     if (isDisplayed) {
@@ -252,43 +276,26 @@ paymentSelect.addEventListener('change', () => {
     showPaymentOption(paymentOption);
 });
 
-emailAddress.addEventListener('keyup', (event) => {
-    console.log(event)
-});
-
 // When the form is submited
 form.addEventListener('submit', (event) => {
 
-    event.preventDefault();
-
-    let paymentOption = paymentSelect.value;
-    
-    checkUsername(userNameInput);
-    checkEmail(emailAddress);
-        
-    checkCardNumber(cardNumber);
-    verifyCreditCard(zipNumber, 5, 'Zip Code');
-    verifyCreditCard(cvvNumber, 3, 'CVV');
-    
-    checkOtherJobRole(userTitleSelect, jobRoleInput);
-
-    // 
-    //  TODO: change this function, not work as expected
-    //
-    // Then inspect the checkbox elements, if there is no checkbox checked, return an error
-    function checkboxValidation() {
-        let status;
-        for (let i = 0; i < activitiesCheckboxes.length; i++) {
-            if (activitiesCheckboxes[i].checked) {
-                status = true;
-                return status;
-            } else {
-                status = false;
-                return status;
-            }
-        }
+    if (!checkUsername(userNameInput) || !checkEmail(emailAddress)) {
+        event.preventDefault();
+        console.log('foo')
     }
 
-    checkboxValidation();
-    // console.log(checkboxValidation());
+    checkOtherJobRole(userTitleSelect, jobRoleInput);
+
+    checkUsername(userNameInput);
+    checkEmail(emailAddress);
+    
+
+    let paymentOption = paymentSelect.value;
+    if (paymentOption === 'credit card') {
+        checkCardNumber(cardNumber);
+        verifyCreditCard(zipNumber, 5, 'Zip Code');
+        verifyCreditCard(cvvNumber, 3, 'CVV');    
+    }
+    
+    checkboxValidation(activitiesCheckboxes);
 });
