@@ -65,7 +65,7 @@ checkUsername = (input) => {
         verifyInput(input, "Name: ", "#000", "none", "#c1deeb");
         return true;
     }
-}
+} // /f(checkUsername)
 
 checkEmail = (input) => {
     if (input.value.length === 0) {
@@ -82,17 +82,31 @@ checkEmail = (input) => {
             return false;
         }
     } 
-}
+} // /f(checkEmail)
 
-checkOtherJobRole = (parentNode, targetedInput) => {
+const checkOtherJobRole = (parentNode, targetedInput) => {
     if ((parentNode.value === "other") && (targetedInput.value.length === 0)) {
         targetedInput.style.borderColor = "red";
     } else {
         targetedInput.style.borderColor = "#c1deeb";
     }    
-}
+} // /f(checkOtherJobRole)
 
-checkCardNumber = (input) => {
+const colorValues = (array, value1, value2) => {
+    for (let i = 0; i < array.length; i++) {
+        if (array[i].className == value1) {
+            array[i].style.display = 'initial';
+        } else if (array[i].className == value2) {
+            array[i].style.display = 'initial';
+        } else {
+            array[i].style.display = 'none';
+        }
+    }
+    // By default, the first option is always selected
+    array[0].selected = true;
+} // /f(colorValues)
+
+const checkCardNumber = (input) => {
     if (isNaN(parseInt(input.value))) {
         verifyInput(input, "Card Number: (Should be a number)", "#3D0B1A", "underline", "red");
         return false;
@@ -105,7 +119,7 @@ checkCardNumber = (input) => {
             return false;
         }
     }
-}
+} // /f(checkCardNumber)
 
 const verifyCreditCard = (inputTargerted, requiredLength, inputText) => {
     if (isNaN(parseInt(inputTargerted.value)) || (inputTargerted.value.length != requiredLength)) {
@@ -115,7 +129,7 @@ const verifyCreditCard = (inputTargerted, requiredLength, inputText) => {
         verifyInput(inputTargerted, "Zip Code: ", "#000", "none", "#c1deeb");
         return true;
     }
-}
+} // /f(verifyCreditCard)
 
 
 
@@ -127,24 +141,10 @@ const showOtherJobRole = (jobRoleValue) => {
     } else {
         jobRoleInput.style.display = "none";
     }
-};
+} // /f(showOtherJobRole)
 
 // Take the T-Shirt Design Value and append the new node is either "js puns" or "heart js"
 const showColorContainer = (shirtDesign) => {
-    function colorValues(array, value1, value2) {
-        for (let i = 0; i < array.length; i++) {
-            if (array[i].className == value1) {
-                array[i].style.display = 'initial';
-            } else if (array[i].className == value2) {
-                array[i].style.display = 'initial';
-            } else {
-                array[i].style.display = 'none';
-            }
-        }
-        // By default, the first option is always selected
-        array[0].selected = true;
-    } // /f(colorValues)
-    
     if (shirtDesign.toLowerCase() === "js puns") {
         shirtFieldset.appendChild(selectColorsContainer);
         colorValues(userColorValues, 'base', 'puns');
@@ -156,7 +156,7 @@ const showColorContainer = (shirtDesign) => {
     } else {
         shirtFieldset.removeChild(selectColorsContainer);
     }
-};
+} // f(showColorContainer)
 
 
 // Take the event and able or disable for the activities and display total price
@@ -263,12 +263,18 @@ paymentSelect.addEventListener('change', () => {
 
 // When the form is submited
 form.addEventListener('submit', (event) => {
-    
-    
+
     event.preventDefault();
+
+    let paymentOption = paymentSelect.value;
     
     checkUsername(userNameInput);
     checkEmail(emailAddress);
+        
+    checkCardNumber(cardNumber);
+    verifyCreditCard(zipNumber, 5, 'Zip Code');
+    verifyCreditCard(cvvNumber, 3, 'CVV');
+    
     checkOtherJobRole(userTitleSelect, jobRoleInput);
 
     // 
@@ -287,18 +293,7 @@ form.addEventListener('submit', (event) => {
             }
         }
     }
-    // End: checkboxValidation()
-    
 
-    // If the credit card has been selected
-    let paymentOption = paymentSelect.value;
-    if (paymentOption === 'credit card') {
-        // Target the credit card field
-        
-
-        checkCardNumber(cardNumber);
-        verifyCreditCard(zipNumber, 5, 'Zip Code');
-        verifyCreditCard(cvvNumber, 3, 'CVV');
-
-    }
+    checkboxValidation();
+    console.log(checkboxValidation());
 });
