@@ -92,14 +92,14 @@ const checkOtherJobRole = (parentNode, targetedInput) => {
     }    
 } // /f(checkOtherJobRole)
 
-const colorValues = (array, value1, value2) => {
+const colorValues = (arrayOfShirt, shirtColor1, shirtColor2) => {
     for (let i = 0; i < array.length; i++) {
-        if (array[i].className == value1) {
-            array[i].style.display = 'initial';
-        } else if (array[i].className == value2) {
-            array[i].style.display = 'initial';
+        if (arrayOfShirt[i].className == shirtColor1) {
+            arrayOfShirt[i].style.display = 'initial';
+        } else if (arrayOfShirt[i].className == shirtColor2) {
+            arrayOfShirt[i].style.display = 'initial';
         } else {
-            array[i].style.display = 'none';
+            arrayOfShirt[i].style.display = 'none';
         }
     }
     // By default, the first option is always selected
@@ -131,8 +131,6 @@ const verifyCreditCard = (inputTargerted, requiredLength, inputText) => {
     }
 } // /f(verifyCreditCard)
 
-
-
 // Take the Job Role Value and display the node if needed
 const showOtherJobRole = (jobRoleValue) => {
     if (jobRoleValue.toLowerCase() === "other") {
@@ -158,20 +156,20 @@ const showColorContainer = (shirtDesign) => {
     }
 } // f(showColorContainer)
 
+function checkedActivity(activity1, activity2) {
+    if (activity1.checked) {
+        activity2.setAttribute('disabled', true);
+    }
+} // /f(checkedActivity)
+
+function uncheckedActivity(activity1, activity2) {
+    if (!activity1.checked) {
+        activity2.removeAttribute('disabled');
+    }
+} // /f(uncheckedActivity)
 
 // Take the event and able or disable for the activities and display total price
 const registeringForActivities = (inputChecked) => {
-    function checkedActivity(activity1, activity2) {
-        if (activity1.checked) {
-            activity2.setAttribute('disabled', true);
-        }
-    } // /f(checkedActivity)
-    function uncheckedActivity(activity1, activity2) {
-        if (!activity1.checked) {
-            activity2.removeAttribute('disabled');
-        }
-    } // /f(uncheckedActivity)
-
     // The first couple of checkbox inputs
     let jsFrameworks = document.querySelector('input[name=js-frameworks]');
     let express = document.querySelector('input[name=express]');
@@ -200,22 +198,20 @@ const registeringForActivities = (inputChecked) => {
     }
 }; // /f(registeringForactivities)
 
+const showBlock = (paymentOption1, paymentOption2, paymentOption3, isDisplayed) => {
+    if (isDisplayed) {
+        paymentOption1.style.display = "block";
+        paymentOption2.style.display = "none";
+        paymentOption3.style.display = "none";
+    } else {
+        paymentOption1.style.display = "none";
+        paymentOption2.style.display = "none";
+        paymentOption3.style.display = "none";
+    }
+}; // /f(showBlock)
 
 // Take the payment option and show the child needed
 const showPaymentOption = (paymentOptionValue) => {
-    function showBlock(option1, option2, option3, boolean) {
-        if (boolean) {
-            option1.style.display = "block";
-            option2.style.display = "none";
-            option3.style.display = "none";
-        } else {
-            option1.style.display = "none";
-            option2.style.display = "none";
-            option3.style.display = "none";
-        }
-    } // /f(showBlock)
-
-
     if (paymentOptionValue === 'credit card') {
         showBlock(creditCardPayment, paypalPayment, bitcoinPayment, true);
     } else if (paymentOptionValue === 'paypal') {
@@ -295,5 +291,5 @@ form.addEventListener('submit', (event) => {
     }
 
     checkboxValidation();
-    console.log(checkboxValidation());
+    // console.log(checkboxValidation());
 });
