@@ -1,31 +1,26 @@
 /*************** Targeting the elements already present inside the page ***************/
-const form = document.querySelector("form");
-
-const firstFieldset = document.querySelector('fieldset');
-const userNameInput = document.querySelector('input');
-const emailAddress = document.getElementById('mail');
-const regexEmail = new RegExp('^[0-9a-z._-]+@{1}[0-9a-z.-]{2,}[.]{1}[a-z]{2,5}$','i');
-const userTitleSelect = document.querySelector('#title');
-const jobRoleInput = document.querySelector('#other-title');
-
-const shirtFieldset = document.querySelector('.shirt');
-const userDesignSelect = document.querySelector('#design');
-const selectColorsContainer = document.querySelector('.select-colors');
-const userColorSelect = document.querySelector("#color");
-const userColorValues = userColorSelect.querySelectorAll('option');
-
-const activitiesFieldset = document.querySelector('.activities');
-const activitiesCheckboxes =activitiesFieldset.querySelectorAll("input[type=checkbox]");
-
-const paymentFiedlset = document.querySelector('.paymentContainer');
-const paymentSelect = document.querySelector('#payment');
-const creditCardPayment = document.querySelector('#credit-card');
-const paypalPayment = document.querySelector(".paypal");
-const bitcoinPayment = document.querySelector(".bitcoin");
-
-const cardNumber = document.querySelector('#cc-num');
-const zipNumber = document.querySelector('#zip');
-const cvvNumber = document.querySelector("#cvv");
+const form                      = document.querySelector("form");
+const firstFieldset             = document.querySelector('fieldset');
+const userNameInput             = document.querySelector('input');
+const emailAddress              = document.getElementById('mail');
+const regexEmail                = new RegExp('^[0-9a-z._-]+@{1}[0-9a-z.-]{2,}[.]{1}[a-z]{2,5}$','i');
+const userTitleSelect           = document.querySelector('#title');
+const jobRoleInput              = document.querySelector('#other-title');
+const shirtFieldset             = document.querySelector('.shirt');
+const userDesignSelect          = document.querySelector('#design');
+const selectColorsContainer     = document.querySelector('.select-colors');
+const userColorSelect           = document.querySelector("#color");
+const userColorValues           = userColorSelect.querySelectorAll('option');
+const activitiesFieldset        = document.querySelector('.activities');
+const activitiesCheckboxes      = activitiesFieldset.querySelectorAll("input[type=checkbox]");
+const paymentFiedlset           = document.querySelector('.paymentContainer');
+const paymentSelect             = document.querySelector('#payment');
+const creditCardPayment         = document.querySelector('#credit-card');
+const paypalPayment             = document.querySelector(".paypal");
+const bitcoinPayment            = document.querySelector(".bitcoin");
+const cardNumber                = document.querySelector('#cc-num');
+const zipNumber                 = document.querySelector('#zip');
+const cvvNumber                 = document.querySelector("#cvv");
 
 
 /*************** Creating Global Variables ***************/
@@ -255,6 +250,10 @@ activitiesFieldset.addEventListener('change', (event) => {
 paymentSelect.addEventListener('change', () => {
     let paymentOption = paymentSelect.value;
     showPaymentOption(paymentOption);
+});
+
+emailAddress.addEventListener('keyup', (event) => {
+    console.log(event)
 });
 
 // When the form is submited
