@@ -87,14 +87,6 @@ const checkEmail = (input) => {
     } 
 } // /f(checkEmail)
 
-const checkOtherJobRole = (parentNode, targetedInput) => {
-    if ((parentNode.value === "other") && (targetedInput.value.length === 0)) {
-        targetedInput.style.borderColor = "red";
-    } else {
-        targetedInput.style.borderColor = "#c1deeb";
-    }    
-} // /f(checkOtherJobRole)
-
 const colorValues = (arrayOfShirt, shirtColor1, shirtColor2) => {
     for (let i = 0; i < array.length; i++) {
         if (arrayOfShirt[i].className == shirtColor1) {
@@ -108,6 +100,14 @@ const colorValues = (arrayOfShirt, shirtColor1, shirtColor2) => {
     // By default, the first option is always selected
     array[0].selected = true;
 } // /f(colorValues)
+
+const checkCard = (optionSelected) => {
+    if ((optionSelected === 'credit card') && checkCardNumber(cardNumber) && verifyCreditCard(zipNumber, 5, 'Zip Code')  && verifyCreditCard(cvvNumber, 3, 'CVV')) {
+        return true;
+    } else {
+        return false;
+    }
+} // /f(checkCard)
 
 const checkCardNumber = (input) => {
     if (isNaN(parseInt(input.value))) {
@@ -248,6 +248,11 @@ window.onload = () => {
     shirtFieldset.removeChild(selectColorsContainer);
 };
 
+// When the email address input is filled in
+emailAddress.addEventListener('keyup', (event) => {
+    checkEmail(emailAddress)
+});
+
 // When the "Other" Job Role is choosen, show input
 userTitleSelect.addEventListener('change', () => {
     let userTitleValue = userTitleSelect.value;
@@ -274,24 +279,20 @@ paymentSelect.addEventListener('change', () => {
 
 // When the form is submited
 form.addEventListener('submit', (event) => {
-
-    if (!checkUsername(userNameInput) || !checkEmail(emailAddress)) {
-        event.preventDefault();
-        console.log('foo')
-    }
-
-    checkOtherJobRole(userTitleSelect, jobRoleInput);
+    let paymentOption = paymentSelect.value;
 
     checkUsername(userNameInput);
     checkEmail(emailAddress);
+    checkboxValidation(activitiesCheckboxes);
     
-
-    let paymentOption = paymentSelect.value;
+    
     if (paymentOption === 'credit card') {
         checkCardNumber(cardNumber);
         verifyCreditCard(zipNumber, 5, 'Zip Code');
-        verifyCreditCard(cvvNumber, 3, 'CVV');    
+        verifyCreditCard(cvvNumber, 3, 'CVV');
     }
-    
-    checkboxValidation(activitiesCheckboxes);
+
+    if (!checkUsername(userNameInput) || !checkEmail(emailAddress) || !checkboxValidation(activitiesCheckboxes) || !checkCard(paymentOption)) {
+        event.preventDefault();
+    }
 });
