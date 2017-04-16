@@ -46,7 +46,7 @@ activitiesFieldset.appendChild(totalPrice);
 // The job input element is hidden by default
 jobRoleInput.style.display          = "none";
 // The three payment options are hidden by default
-creditCardPayment.style.display     = "none";
+creditCardPayment.style.display     = "block";
 paypalPayment.style.display         = "none";
 bitcoinPayment.style.display        = "none";
 
@@ -211,34 +211,30 @@ const checkboxValidation = (inputTargerted) => {
     }
     if (myArray.length === inputTargerted.length) {
         registerTitle.textContent = "Register for Activities: (please chooese at least one activity)";
+        registerTitle.style.color = "#3D0B1A";
+        registerTitle.style.textDecoration = "underline";
         return false;
     }
     registerTitle.textContent = "Register for Activities: ";
+    registerTitle.style.color = "#000";
+    registerTitle.style.textDecoration = "none";
     return true;
 } // /f(checkboxValidation)
 
-const showBlock = (paymentOption1, paymentOption2, paymentOption3, isDisplayed) => {
-    if (isDisplayed) {
-        paymentOption1.style.display = "block";
-        paymentOption2.style.display = "none";
-        paymentOption3.style.display = "none";
-    } else {
-        paymentOption1.style.display = "none";
-        paymentOption2.style.display = "none";
-        paymentOption3.style.display = "none";
-    }
+const showBlock = (paymentOption1, paymentOption2, paymentOption3) => {
+    paymentOption1.style.display = "block";
+    paymentOption2.style.display = "none";
+    paymentOption3.style.display = "none";
 }; // /f(showBlock)
 
 // Take the payment option and show the child needed
 const showPaymentOption = (paymentOptionValue) => {
     if (paymentOptionValue === 'credit card') {
-        showBlock(creditCardPayment, paypalPayment, bitcoinPayment, true);
+        showBlock(creditCardPayment, paypalPayment, bitcoinPayment);
     } else if (paymentOptionValue === 'paypal') {
-        showBlock(paypalPayment, creditCardPayment, bitcoinPayment, true);
+        showBlock(paypalPayment, creditCardPayment, bitcoinPayment);
     } else if (paymentOptionValue === 'bitcoin') {
-        showBlock(bitcoinPayment, paypalPayment, creditCardPayment, true);
-    } else {
-        showBlock(bitcoinPayment, paypalPayment, creditCardPayment, false);
+        showBlock(bitcoinPayment, paypalPayment, creditCardPayment);
     }
 }; // /f(showPaymentOption)
 
