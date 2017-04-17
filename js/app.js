@@ -36,6 +36,7 @@ const cvvNumber                 = document.querySelector("#cvv");
 let totalSum = 0;
 
 /*************** Creating the DOM Elements ***************/
+// The group of elements below is targeting the total price for the "register for activites" part.
 const totalPrice = document.createElement('h4');
 totalPrice.id = 'total-price';
 totalPrice.textContent = "The total price of your order is: " + totalSum + "$";
@@ -52,7 +53,7 @@ bitcoinPayment.style.display        = "none";
 
 
 /*************** Creating the functions wished ***************/
-// The security functions
+// Modify the element when an error occurs
 const verifyInput = (targetedInput, text, color, underlining, borderColor) => {
     targetedInput.previousElementSibling.textContent = text;
     targetedInput.previousElementSibling.style.color = color;
@@ -60,6 +61,7 @@ const verifyInput = (targetedInput, text, color, underlining, borderColor) => {
     targetedInput.style.borderColor = borderColor;
 } // /f(verifyInput)
 
+// Check the username element by verifying if it's blank or filled in
 const checkUsername = (input) => {
     if (input.value.length === 0) {
         verifyInput(input, "Name: (cannot be blanked)", "#3D0B1A", "underline", "red");
@@ -70,6 +72,7 @@ const checkUsername = (input) => {
     }
 } // /f(checkUsername)
 
+// Check the e-mail by verifying if it's blank or if the e-mail address is correct.
 const checkEmail = (input) => {
     if (input.value.length === 0) {
         verifyInput(input, "Email: (cannot be blanked)", "#3D0B1A", "underline", "red");
@@ -87,6 +90,7 @@ const checkEmail = (input) => {
     } 
 } // /f(checkEmail)
 
+// Show or hide the color of t-shirts according to its design.
 const colorValues = (arrayOfShirt, shirtColor1, shirtColor2) => {
     for (let i = 0; i < array.length; i++) {
         if (arrayOfShirt[i].className == shirtColor1) {
@@ -101,6 +105,7 @@ const colorValues = (arrayOfShirt, shirtColor1, shirtColor2) => {
     array[0].selected = true;
 } // /f(colorValues)
 
+// Check if the credit card inputs are in the right form.
 const checkCard = (optionSelected) => {
     if ((optionSelected === 'credit card') && checkCardNumber(cardNumber) && verifyCreditCard(zipNumber, 5, 'Zip Code')  && verifyCreditCard(cvvNumber, 3, 'CVV')) {
         return true;
@@ -109,6 +114,7 @@ const checkCard = (optionSelected) => {
     }
 } // /f(checkCard)
 
+// Check if the card number input has no erros
 const checkCardNumber = (input) => {
     if (isNaN(parseInt(input.value))) {
         verifyInput(input, "Card Number: (Should be a number)", "#3D0B1A", "underline", "red");
@@ -124,12 +130,13 @@ const checkCardNumber = (input) => {
     }
 } // /f(checkCardNumber)
 
+// Check if either zip code or cvv are in the right form
 const verifyCreditCard = (inputTargerted, requiredLength, inputText) => {
     if (isNaN(parseInt(inputTargerted.value)) || (inputTargerted.value.length != requiredLength)) {
         verifyInput(inputTargerted, inputText + ": (error)", "#3D0B1A", "underline", "red");
         return false;
     } else {
-        verifyInput(inputTargerted, "Zip Code: ", "#000", "none", "#c1deeb");
+        verifyInput(inputTargerted, inputText +": ", "#000", "none", "#c1deeb");
         return true;
     }
 } // /f(verifyCreditCard)
@@ -159,12 +166,14 @@ const showColorContainer = (shirtDesign) => {
     }
 } // f(showColorContainer)
 
+// Check if one of the activity has been selected, disable the related other one
 const checkedActivity = (activity1, activity2) => {
     if (activity1.checked) {
         activity2.setAttribute('disabled', true);
     }
 } // /f(checkedActivity)
 
+// Check if one of the activity has been unselected, able the related other one
 const uncheckedActivity = (activity1, activity2) => {
     if (!activity1.checked) {
         activity2.removeAttribute('disabled');
@@ -201,6 +210,7 @@ const registeringForActivities = (inputChecked) => {
     }
 }; // /f(registeringForactivities)
 
+// Check if there is one checkbox checked
 const checkboxValidation = (inputTargerted) => {
     let status;
     let myArray = [];
@@ -221,6 +231,7 @@ const checkboxValidation = (inputTargerted) => {
     return true;
 } // /f(checkboxValidation)
 
+// Show the payment Option according to the select menu
 const showBlock = (paymentOption1, paymentOption2, paymentOption3) => {
     paymentOption1.style.display = "block";
     paymentOption2.style.display = "none";
