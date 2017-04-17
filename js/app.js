@@ -92,7 +92,7 @@ const checkEmail = (input) => {
 
 // Show or hide the color of t-shirts according to its design.
 const colorValues = (arrayOfShirt, shirtColor1, shirtColor2) => {
-    for (let i = 0; i < array.length; i++) {
+    for (let i = 0; i <arrayOfShirt.length; i++) {
         if (arrayOfShirt[i].className == shirtColor1) {
             arrayOfShirt[i].style.display = 'initial';
         } else if (arrayOfShirt[i].className == shirtColor2) {
@@ -102,7 +102,7 @@ const colorValues = (arrayOfShirt, shirtColor1, shirtColor2) => {
         }
     }
     // By default, the first option is always selected
-    array[0].selected = true;
+    arrayOfShirt[0].selected = true;
 } // /f(colorValues)
 
 // Check if the credit card inputs are in the right form.
